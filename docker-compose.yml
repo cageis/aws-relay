@@ -1,0 +1,12 @@
+services:
+  aws-relay:
+    build: .
+    ports:
+      - "4567:4567"   # Proxy
+      - "4568:4568"   # Dashboard
+    environment:
+      - AWS_UPSTREAM_URL=${AWS_UPSTREAM_URL:-http://host.docker.internal:4566}
+      - AWS_RELAY_ADDR=:4567
+      - AWS_DASHBOARD_ADDR=:4568
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
